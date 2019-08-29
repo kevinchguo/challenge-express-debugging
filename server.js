@@ -11,13 +11,19 @@ app.use(express.static('./public'));
 app.engine('.hbs', exphbs({ extname: '.hbs', defaultLayout: 'main' }));
 app.set('view engine', '.hbs');
 
+app.use('/home', home);
+app.use('/about', about);
+app.use('/contact', contact);
+
 app.get('/', (req, res) => {
   res.send('smoke test');
 });
 
-app.use('/home', home);
-app.use('/about', about);
-app.use('/contact', contact);
+app.get('/:id', (req, res) => {
+  if (!["home", "about", "contact"].includes(req.params.id)) {
+    res.send('smoke test');
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server started on port: ${PORT}`);
