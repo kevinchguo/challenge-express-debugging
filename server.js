@@ -3,17 +3,17 @@ const exphbs = require('express-handlebars');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-const home = require('./routes/home/get');
-const about = require('./routes/about/get');
-const contact = require('./routes/contact/get');
+const home = require('./routes/home');
+const about = require('./routes/about');
+const contact = require('./routes/contact');
 
 app.use(express.static('./public'));
 app.engine('.hbs', exphbs({ extname: '.hbs', defaultLayout: 'main' }));
 app.set('view engine', '.hbs');
 
-app.use('/home', home);
-app.use('/about', about);
-app.use('/contact', contact);
+app.use('/', home);
+app.use('/', about);
+app.use('/', contact);
 
 app.get('/', (req, res) => {
   res.send('smoke test');
